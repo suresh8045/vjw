@@ -7,25 +7,43 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.viswakarma.jewelleryworks.ui.home.HomeFragment"
+        android:name="com.viswakarma.jewelleryworks.view.fragment.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_create_order"
+            app:destination="@id/navigation_create_order" />
+        <action
+            android:id="@+id/action_navigation_home_to_addCustomerFragment"
+            app:destination="@id/addCustomerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.viswakarma.jewelleryworks.ui.dashboard.DashboardFragment"
+        android:name="com.viswakarma.jewelleryworks.view.fragment.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.viswakarma.jewelleryworks.ui.notifications.NotificationsFragment"
+        android:name="com.viswakarma.jewelleryworks.view.fragment.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_create_order"
-        android:name="com.viswakarma.jewelleryworks.ui.createorder.CreateOrderFragment"
+        android:name="com.viswakarma.jewelleryworks.view.fragment.CreateOrderFragment"
         android:label="@string/title_create_order"
         tools:layout="@layout/create_order_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_catalogue"
+        android:name="com.viswakarma.jewelleryworks.view.fragment.CatalogueFragment"
+        android:label="@string/title_catalogue"
+        tools:layout="@layout/fragment_catalogue" />
+    <fragment
+        android:id="@+id/addCustomerFragment"
+        android:name="com.viswakarma.jewelleryworks.AddCustomerFragment"
+        android:label="@string/title_add_customer"
+        tools:layout="@layout/add_customer_fragment" />
 </navigation>

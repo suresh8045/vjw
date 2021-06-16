@@ -5,4 +5,21 @@
     <string name="title_notifications">Notifications</string>
     <string name="customer_name">Customer Name</string>
     <string name="title_create_order">Create Order</string>
+    <string name="add">Add</string>
+    <string name="title_catalogue">Catalogue</string>
+    <string name="title_add">Add</string>
+    <string name="search">Search</string>
+    <string name="search_title">Search</string>
+    <string name="random_string">kjhjahfidfhkjaghfgfshjfhgskufgkisafjbusgdiusfbjsdbfiugfjbafuasgfusdbuhkdsvywgiefhokdjo546546wrw3[koiszdhfsfb</string>
+    <string name="label_metal">Metal</string>
+    <string name="label_weight_g">Weight (g)</string>
+    <string name="label_category">Category</string>
+    <string name="label_type">Type</string>
+    <string name="label_model_no">Model no</string>
+    <string name="customer">Customer</string>
+    <string name="title_add_customer">Add Customer</string>
+    <string name="phoneNumber">Phone</string>
+    <string name="address">Address</string>
+    <string name="add_customer">Add Customer</string>
+    <string name="top_customers">Top Customers</string>
 </resources>
