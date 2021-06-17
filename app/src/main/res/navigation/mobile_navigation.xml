@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_create_order"
-            app:destination="@id/navigation_create_order" />
+            app:destination="@id/navigation_create_order">
+        </action>
         <action
             android:id="@+id/action_navigation_home_to_addCustomerFragment"
             app:destination="@id/addCustomerFragment" />
@@ -34,7 +35,16 @@
         android:id="@+id/navigation_create_order"
         android:name="com.viswakarma.jewelleryworks.view.fragment.CreateOrderFragment"
         android:label="@string/title_create_order"
-        tools:layout="@layout/create_order_fragment" />
+        tools:layout="@layout/create_order_fragment" >
+        <argument
+            android:name="customerId"
+            app:argType="string"
+            android:defaultValue='' />
+        <action
+            android:id="@+id/action_navigation_create_order_to_transactionsFragment"
+            app:destination="@id/transactionsFragment"
+            app:popUpTo="@id/navigation_home"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_catalogue"
@@ -46,4 +56,15 @@
         android:name="com.viswakarma.jewelleryworks.AddCustomerFragment"
         android:label="@string/title_add_customer"
         tools:layout="@layout/add_customer_fragment" />
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.viswakarma.jewelleryworks.TransactionsFragment"
+        android:label="@string/title_transactions"
+        tools:layout="@layout/transactions_fragment" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

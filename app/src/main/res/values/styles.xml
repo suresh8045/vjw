@@ -15,6 +15,13 @@
         <item name="android:textColor">#262626</item>
     </style>
 
+    <style name="TitleTextMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#262626</item>
+    </style>
+
     <style name="BodyText">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
@@ -30,6 +37,17 @@
     <style name="ThemeOverlay.App.RadioButton" parent="">
         <item name="colorOnSurface">@color/gold</item>
         <item name="colorSecondary">@color/gold</item>
+    </style>
+
+    <style name="Widget.App.Button.TextButton.IconOnly" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:maxHeight">32dp</item>
+        <item name="android:maxWidth">32dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
     </style>
 
     <color name="gold">#FCB400</color>

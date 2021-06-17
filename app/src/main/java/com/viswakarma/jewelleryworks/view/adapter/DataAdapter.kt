@@ -7,11 +7,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.NavArgs
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.viswakarma.jewelleryworks.R
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Customer
+import com.viswakarma.jewelleryworks.view.fragment.CreateOrderFragment
+import com.viswakarma.jewelleryworks.view.fragment.HomeFragmentDirections
 
 class DataAdapter(context: Context) : GenericAdapter(DataItemDiffCallback()) {
 
@@ -67,11 +71,14 @@ class DataAdapter(context: Context) : GenericAdapter(DataItemDiffCallback()) {
             const val resource = R.layout.recycler_customer_square_itemview
         }
         override fun onBind(position: Int, item: Any) {
-            (item as? Customer)?.let{
-                customerName.text = it.name
-                phoneNo.text = it.phone
+            (item as? Customer)?.let{ customer ->
+                customerName.text = customer.name
+                phoneNo.text = customer.phone
                 createOrderButton.setOnClickListener {
-                    view.findNavController().navigate(R.id.action_navigation_home_to_navigation_create_order)
+                    view.findNavController().navigate(
+                        HomeFragmentDirections.actionNavigationHomeToNavigationCreateOrder()
+                            .setCustomerId(customer.id)
+                    )
                 }
             }
         }

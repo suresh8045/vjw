@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.viswakarma.jewelleryworks.R
@@ -17,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateOrderFragment : BaseFragment() {
     private val viewModel by viewModel<CreateOrderViewModel>()
+    private val args: CreateOrderFragmentArgs by navArgs()
 
     private lateinit var customerSelection: AutoCompleteTextView
     private lateinit var customerSelectionInputLayout: TextInputLayout
@@ -27,14 +29,10 @@ class CreateOrderFragment : BaseFragment() {
     private lateinit var descriptionInputLayout: TextInputLayout
     private lateinit var weightInput: TextInputEditText
     private lateinit var weightInputLayout: TextInputLayout
-    private lateinit var makingChargeInput: TextInputEditText
-    private lateinit var makingChargeInputLayout: TextInputLayout
-    private lateinit var totalAmountInput: TextInputEditText
-    private lateinit var totalAmountInputLayout: TextInputLayout
     private lateinit var createOrderBtn: Button
 
     companion object{
-        const val CUSTOMER_ID ="CUSTOMER_ID"
+        const val customerId ="customerId"
     }
 
     override fun onCreateView(
@@ -54,10 +52,6 @@ class CreateOrderFragment : BaseFragment() {
         descriptionInputLayout = view.findViewById(R.id.descriptionLayout)
         weightInput = view.findViewById(R.id.weight)
         weightInputLayout = view.findViewById(R.id.weightLayout)
-        makingChargeInput = view.findViewById(R.id.makingCharge)
-        makingChargeInputLayout = view.findViewById(R.id.makingChargeLayout)
-        totalAmountInput = view.findViewById(R.id.amount)
-        totalAmountInputLayout = view.findViewById(R.id.amountLayout)
         createOrderBtn = view.findViewById(R.id.save_btn)
     }
 
@@ -74,57 +68,51 @@ class CreateOrderFragment : BaseFragment() {
         weightInput.doAfterTextChanged {
             doWeightValidation(it.toString(), weightInputLayout)
         }
-        makingChargeInput.doAfterTextChanged {
-            doMakingChargeValidation(it.toString(), makingChargeInputLayout)
-        }
-        totalAmountInput.doAfterTextChanged {
-            doTotalAmountValidation(it.toString(), totalAmountInputLayout)
-        }
         createOrderBtn.setOnClickListener {
             doCustomerValidation(customerSelectionInputLayout)
             doMetalSelectionValidation(metalRadioGroup)
             doModelNoValidation(modelNoInput.text.toString(), modelNoInputLayout)
             doDescriptionValidation(descriptionInput.text.toString(), descriptionInputLayout)
             doWeightValidation(weightInput.text.toString(), weightInputLayout)
-            doMakingChargeValidation(makingChargeInput.text.toString(), makingChargeInputLayout)
-            doTotalAmountValidation(totalAmountInput.text.toString(), totalAmountInputLayout)
             if (metalRadioGroup.findViewById<RadioButton>(R.id.radio_button_silver).error.isNullOrBlank()
                 && modelNoInputLayout.error.isNullOrBlank()
                 && descriptionInputLayout.error.isNullOrBlank()
                 && weightInputLayout.error.isNullOrBlank()
-                && makingChargeInputLayout.error.isNullOrBlank()
-                && totalAmountInputLayout.error.isNullOrBlank()
             ) {
                 viewModel.createOrder(
                     customerId = "customerId",
                     name = "",
                     "phone",
                     descriptionInput.text.toString(),
-                    totalAmountInput.text.toString().toIntOrNull() ?: 0
+                    0
                 )
                 viewModel.getIsSumbitted().observe(viewLifecycleOwner) {
-                    findNavController().popBackStack()
+                    findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToTransactionsFragment())
                 }
             }
         }
     }
 
     override fun setupObservers() {
-        val customerId = arguments?.getString(CUSTOMER_ID,"")
+        Log.e("customerId", "${args.customerId}")
+        val customerId = args.customerId
         viewModel.getCustomersList(customerId).observe(viewLifecycleOwner){ customers ->
             val items = customers.map { "${it.phone}|${it.name}" }
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
             (customerSelection as? AutoCompleteTextView)?.run {
-                doAfterTextChanged {
-                    viewModel.setSelectedCustomer(null)
-                    doCustomerValidation(customerSelectionInputLayout)
-                }
                 setAdapter(adapter)
                 setOnItemClickListener { _, _, position, _ ->
                     viewModel.setSelectedCustomer(customers[position])
                     doCustomerValidation(customerSelectionInputLayout)
                 }
-
+                if(customerId.isNotBlank()){
+                    customerSelection.setText(items[0])
+                    viewModel.setSelectedCustomer(customers[0])
+                }
+                doAfterTextChanged {
+                    viewModel.setSelectedCustomer(null)
+                    doCustomerValidation(customerSelectionInputLayout)
+                }
             }
         }
     }
@@ -146,22 +134,6 @@ class CreateOrderFragment : BaseFragment() {
     private fun doWeightValidation(text: String, layout: TextInputLayout) {
         if (text.isValid().not() && text.toDoubleOrNull() == null) {
             layout.error = "Invalid Weight"
-        } else {
-            layout.error = null
-        }
-    }
-
-    private fun doTotalAmountValidation(text: String, layout: TextInputLayout) {
-        if (text.isValid(isDigitsOnly = true).not()) {
-            layout.error = "Amount must be 0 or more"
-        } else {
-            layout.error = null
-        }
-    }
-
-    private fun doMakingChargeValidation(text: String, layout: TextInputLayout) {
-        if (text.isValid(isDigitsOnly = true).not()) {
-            layout.error = "Making charge must be 0 or more"
         } else {
             layout.error = null
         }

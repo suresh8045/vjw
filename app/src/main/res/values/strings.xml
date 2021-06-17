@@ -30,4 +30,5 @@
     <string name="making_charge">Making charge</string>
     <string name="gold">Gold</string>
     <string name="silver">Silver</string>
+    <string name="title_transactions">Transactions</string>
 </resources>

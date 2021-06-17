@@ -29,11 +29,11 @@ class CreateOrderViewModel(private var dataRepository: DataRepository) : ViewMod
         }
     }
 
-    fun getCustomersList(customerId: String?): LiveData<List<Customer>> = liveData {
+    fun getCustomersList(customerId: String): LiveData<List<Customer>> = liveData {
 //        val items = listOf("Material", "Design", "Components", "Android")
-        if(customerId.isNullOrBlank())
+        if(customerId.isBlank()) {
             emit(dataRepository.getAllCustomers())
-        else {
+        } else {
             val customer = dataRepository.getCustomerById(customerId)
             emit(arrayListOf(customer))
         }

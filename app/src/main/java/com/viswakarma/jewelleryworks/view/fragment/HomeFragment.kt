@@ -85,7 +85,7 @@ class HomeFragment : BaseFragment() {
                     true
                 }
                 R.id.create_order ->{
-                    findNavController().navigate(R.id.action_navigation_home_to_navigation_create_order)
+                    findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToNavigationCreateOrder())
                     true
                 }
                 else -> false
