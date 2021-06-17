@@ -22,7 +22,7 @@ interface OrdersDao {
     @Query("SELECT * FROM Orders")
     suspend fun getAllOrders():List<Orders>
 
-    @Query("SELECT * FROM Orders WHERE orderId=(:id)")
+    @Query("SELECT * FROM Orders WHERE id=(:id)")
     suspend fun getOrdersById(id:String):Orders
 
     @Query("SELECT * FROM Orders")

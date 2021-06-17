@@ -22,4 +22,12 @@
     <string name="address">Address</string>
     <string name="add_customer">Add Customer</string>
     <string name="top_customers">Top Customers</string>
+    <string name="hint_model">Model</string>
+    <string name="description">Description</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="create">create</string>
+    <string name="weight_in_grams">Weight in Grams</string>
+    <string name="making_charge">Making charge</string>
+    <string name="gold">Gold</string>
+    <string name="silver">Silver</string>
 </resources>

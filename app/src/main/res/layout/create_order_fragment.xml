@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,23 +17,28 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/customerSelectionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
+                android:id="@+id/customerSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/customer"
-                android:inputType="none" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:hint="Mobile"
+            android:visibility="gone"
+            android:hint="@string/phoneNumber"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone"
@@ -42,25 +47,110 @@
                 android:layout_height="wrap_content"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroupMetal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radio_button_gold"
+                style="@style/BodyText"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gold"/>
+            <RadioButton
+                android:id="@+id/radio_button_silver"
+                style="@style/BodyText"
+                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/silver"/>
+        </RadioGroup>
+
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/modelnoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Description"
-            >
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:errorEnabled="true"
+            android:hint="@string/hint_model">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/modelno"
+                android:inputType="textCapWords"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/descriptionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:errorEnabled="true"
+            android:hint="@string/description">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:minHeight="150dp"
-                />
+                android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/weightLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Total Amount"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:errorEnabled="true"
+            android:hint="@string/weight_in_grams">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight"
+                android:inputType="numberDecimal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/makingChargeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:errorEnabled="true"
+            android:visibility="gone"
+            android:hint="@string/making_charge">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/makingCharge"
+                android:inputType="number"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/amountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:errorEnabled="true"
+            android:visibility="gone"
+            android:hint="@string/total_amount"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amount"
@@ -71,11 +161,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:id="@+id/save_btn"
-            android:text="save"
+            android:text="@string/create"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

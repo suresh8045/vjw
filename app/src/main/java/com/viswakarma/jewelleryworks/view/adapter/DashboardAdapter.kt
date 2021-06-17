@@ -30,7 +30,7 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
 
         fun onBind(item: Orders) {
             name.text = item.name
-            due.text = item.totalAmount.toString()
+            due.text = ""//item.totalAmount.toString()
             description.text = item.description
             date.text = item.dateTime.toString()//Common.getDateString(item.date)
         }

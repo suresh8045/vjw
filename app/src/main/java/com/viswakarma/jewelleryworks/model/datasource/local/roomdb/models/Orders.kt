@@ -6,13 +6,19 @@ import java.time.OffsetDateTime
 
 @Entity(tableName = "orders")
 data class Orders(
-    @PrimaryKey(autoGenerate = true)
-    val orderId: Int = 0,
+    @PrimaryKey
+    val id: String,
     val customerId: String,
     var name: String,
     var phone: String,
     var dateTime: OffsetDateTime,
     var image: String = "",
-    var description: String,
-    var totalAmount: Int
-)
+    var modelNo: String = "",
+    var description: String = "",
+    var metal: Int,
+    var weight: Double = 0.0
+) {
+
+}
+
+enum class Metal { GOLD, SILVER, COPPER, BRASS, ALLOY }

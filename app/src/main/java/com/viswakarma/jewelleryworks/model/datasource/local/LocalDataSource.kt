@@ -17,4 +17,6 @@ class LocalDataSource(
     fun getAllOrdersFlow() = ordersDao.getAllOrdersFlow()
     suspend fun addNewCustomer(customer: Customer) = customersDao.insertCustomer(customer)
     fun getAllCustomersFlow(): Flow<List<Customer>> = customersDao.getAllCustomersFlow()
+    suspend fun getAllCustomers(): List<Customer> = customersDao.getAllCustomers()
+    suspend fun getCustomerById(customerId: String): Customer = customersDao.getCustomerById(customerId)
 }

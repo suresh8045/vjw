@@ -22,5 +22,7 @@ class DataRepository(
     }
 
     fun getAllTopCustomers(): Flow<List<Customer>> = localDataSource.getAllCustomersFlow()
+    suspend fun getAllCustomers(): List<Customer> = localDataSource.getAllCustomers()
+    suspend fun getCustomerById(customerId: String): Customer = localDataSource.getCustomerById(customerId)
 
 }
