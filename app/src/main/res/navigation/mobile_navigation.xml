@@ -17,13 +17,20 @@
         <action
             android:id="@+id/action_navigation_home_to_addCustomerFragment"
             app:destination="@id/addCustomerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.viswakarma.jewelleryworks.view.fragment.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -50,7 +57,11 @@
         android:id="@+id/navigation_catalogue"
         android:name="com.viswakarma.jewelleryworks.view.fragment.CatalogueFragment"
         android:label="@string/title_catalogue"
-        tools:layout="@layout/fragment_catalogue" />
+        tools:layout="@layout/fragment_catalogue" >
+        <action
+            android:id="@+id/action_navigation_catalogue_to_addToCatalogueFragment"
+            app:destination="@id/addToCatalogueFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCustomerFragment"
         android:name="com.viswakarma.jewelleryworks.AddCustomerFragment"
@@ -66,5 +77,32 @@
             app:destination="@id/navigation_home"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_transactionsFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.viswakarma.jewelleryworks.OrdersFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/orders_fragment" >
+        <action
+            android:id="@+id/action_ordersFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="com.viswakarma.jewelleryworks.AddTransactionFragment"
+        android:label="@string/title_add_transaction"
+        tools:layout="@layout/add_transaction_fragment" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.viswakarma.jewelleryworks.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
+    <fragment
+        android:id="@+id/addToCatalogueFragment"
+        android:name="com.viswakarma.jewelleryworks.AddToCatalogueFragment"
+        android:label="@string/title_add_catalogue_item"
+        tools:layout="@layout/add_to_catalogue_fragment" />
 </navigation>

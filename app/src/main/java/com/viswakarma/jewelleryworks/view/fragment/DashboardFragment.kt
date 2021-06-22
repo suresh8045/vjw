@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.viswakarma.jewelleryworks.R
@@ -12,8 +13,9 @@ import com.viswakarma.jewelleryworks.view.adapter.DashboardAdapter
 import com.viswakarma.jewelleryworks.viewmodel.DashboardViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DashboardFragment : Fragment(){
+class DashboardFragment : BaseFragment(){
 
+    private lateinit var ordersBtn: Button
     private val dashboardViewModel by viewModel<DashboardViewModel>()
 
     private lateinit var dashboardRecyclerView: RecyclerView
@@ -33,8 +35,9 @@ class DashboardFragment : Fragment(){
         setupObservers()
     }
 
-    private fun setupView(view: View) {
+    override fun setupView(view: View) {
         dashboardRecyclerView = view.findViewById(R.id.dashboard_recyclerview)
+        ordersBtn = view.findViewById(R.id.ordersBtn)
         dashboardRecyclerView.layoutManager = LinearLayoutManager(context)
         dashboardAdapter = DashboardAdapter(requireContext(),object : DashboardAdapter.OnDashboardItemsInteractionListener{
 
@@ -44,7 +47,13 @@ class DashboardFragment : Fragment(){
         dashboardRecyclerView.adapter = dashboardAdapter
     }
 
-    private fun setupObservers() {
+    override fun setupListeners(view: View) {
+        ordersBtn.setOnClickListener {
+            findNavController().navigate(DashboardFragmentDirections.actionNavigationDashboardToOrdersFragment())
+        }
+    }
+
+    override fun setupObservers() {
         dashboardViewModel.getAllOrders().observe(viewLifecycleOwner) { list ->
             loadRecyclerViewList(list)
         }

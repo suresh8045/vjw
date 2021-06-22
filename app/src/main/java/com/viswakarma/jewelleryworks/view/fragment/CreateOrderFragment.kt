@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.viswakarma.jewelleryworks.R
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Metal
 import com.viswakarma.jewelleryworks.model.util.isValid
 import com.viswakarma.jewelleryworks.viewmodel.CreateOrderViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,17 +80,32 @@ class CreateOrderFragment : BaseFragment() {
                 && descriptionInputLayout.error.isNullOrBlank()
                 && weightInputLayout.error.isNullOrBlank()
             ) {
+                val customer = viewModel.getSelectedCustomer()!!
                 viewModel.createOrder(
-                    customerId = "customerId",
-                    name = "",
-                    "phone",
-                    descriptionInput.text.toString(),
-                    0
+                    customerId = customer.id,
+                    name = customer.name,
+                    phone = customer.phone,
+                    metal = getMetalChecked()!!,
+                    model = modelNoInput.text.toString(),
+                    description = descriptionInput.text.toString(),
+                    weight = weightInput.text.toString().toDouble()
                 )
                 viewModel.getIsSumbitted().observe(viewLifecycleOwner) {
                     findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToTransactionsFragment())
                 }
             }
+        }
+    }
+
+    private fun getMetalChecked(): Metal? {
+        return when (metalRadioGroup.checkedRadioButtonId) {
+            R.id.radio_button_gold -> {
+                Metal.GOLD
+            }
+            R.id.radio_button_silver -> {
+                Metal.SILVER
+            }
+            else -> null
         }
     }
 

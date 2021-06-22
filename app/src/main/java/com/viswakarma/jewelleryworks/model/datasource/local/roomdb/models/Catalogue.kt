@@ -24,4 +24,29 @@ data class Catalogue(
     fun areContentsTheSame(newItem: Catalogue): Boolean {
         return this == newItem
     }
+
+    fun getWeightFormat(): String {
+        return "W %.3fg".format(weight)
+    }
+
+    companion object{
+        fun getItemTypes(): List<String> {
+            return arrayListOf<String>().apply {
+                add("Chains")
+                add("Earrings")
+                add("Rings")
+                add("Pendants")
+                add("Bangles")
+                add("Necklaces")
+                add("Bracelets")
+                add("Mangalsutra")
+                add("Nose Pins")
+                add("Nose Screws")
+                add("Nose Rings")
+                add("Kids Bracelets")
+                add("Haram")
+                add("Waist Belt")
+            }
+        }
+    }
 }

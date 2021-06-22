@@ -8,14 +8,18 @@ import android.widget.Button
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.viswakarma.jewelleryworks.view.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
 class AddCustomerFragment : BaseFragment() {
 
     private lateinit var customerName: TextInputEditText
+    private lateinit var customerNameLayout: TextInputLayout
     private lateinit var phoneNo: TextInputEditText
+    private lateinit var phoneNoLayout: TextInputLayout
     private lateinit var address: TextInputEditText
+    private lateinit var addressLayout: TextInputLayout
     private lateinit var addCustomerButton: Button
     private val viewModel: AddCustomerViewModel by inject()
 
@@ -28,8 +32,11 @@ class AddCustomerFragment : BaseFragment() {
 
     override fun setupView(view: View) {
         customerName = view.findViewById(R.id.name)
+        customerNameLayout = view.findViewById(R.id.customerNameLayout)
         phoneNo = view.findViewById(R.id.phone)
+        phoneNoLayout = view.findViewById(R.id.phoneLayout)
         address = view.findViewById(R.id.address)
+        addressLayout = view.findViewById(R.id.addressInputLayout)
         addCustomerButton = view.findViewById(R.id.addCustomerButton)
     }
 
@@ -47,7 +54,7 @@ class AddCustomerFragment : BaseFragment() {
             doCustomerValidation(customerName.text.toString())
             doPhoneNoValidation(phoneNo.text.toString())
             doAddressValidation(address.text.toString())
-            if (customerName.error.isNullOrBlank() && phoneNo.error.isNullOrBlank() && address.error.isNullOrBlank()) {
+            if (customerNameLayout.error.isNullOrBlank() && phoneNoLayout.error.isNullOrBlank() && addressLayout.error.isNullOrBlank()) {
                 viewModel.addCustomer(
                     customerName.text.toString(),
                     phoneNo.text.toString(),
@@ -59,17 +66,23 @@ class AddCustomerFragment : BaseFragment() {
 
     private fun doCustomerValidation(customerName: String) {
         if (viewModel.isCustomerNameValid(customerName).not())
-            this.customerName.error = "Invalid Name"
+            this.customerNameLayout.error = "Invalid Name"
+        else
+            this.customerNameLayout.error = null
     }
 
     private fun doAddressValidation(address: String) {
         if (viewModel.isAddressValid(address).not())
-            this.address.error = "Invalid Address"
+            this.addressLayout.error = "Invalid Address"
+        else
+            this.addressLayout.error = null
     }
 
     private fun doPhoneNoValidation(phoneNo: String) {
         if (viewModel.isPhoneNoValid(phoneNo).not())
-            this.phoneNo.error = "Invalid Phone Number"
+            this.phoneNoLayout.error = "Invalid Phone Number"
+        else
+            this.phoneNoLayout.error = null
     }
 
 

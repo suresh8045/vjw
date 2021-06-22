@@ -3,16 +3,22 @@ package com.viswakarma.jewelleryworks.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
+import com.viswakarma.jewelleryworks.model.repository.DataRepository
 import java.time.OffsetDateTime
 
-class CatalogueViewModel : ViewModel(){
+class CatalogueViewModel(private val dataRepository: DataRepository) : ViewModel(){
 
     private val _catalogueItems: MutableLiveData<List<Catalogue>> = MutableLiveData()
-    val catalogueItems: LiveData<List<Catalogue>> get() = _catalogueItems
+    val catalogueItems: LiveData<List<Catalogue>> get() = dataRepository.getAllCatalogueItems().asLiveData()//_catalogueItems
 
     init {
         _catalogueItems.value = arrayListOf<Catalogue>().apply {
+            add(Catalogue(2, OffsetDateTime.now(),"necklace","longchain","12345","Laxmi Haram",
+                image,"Gold",20.000))
+            add(Catalogue(2, OffsetDateTime.now(),"necklace","longchain","12345","Laxmi Haram",
+                image,"Gold",20.000))
             add(Catalogue(2, OffsetDateTime.now(),"necklace","longchain","12345","Laxmi Haram",
                 image,"Gold",20.000))
         }

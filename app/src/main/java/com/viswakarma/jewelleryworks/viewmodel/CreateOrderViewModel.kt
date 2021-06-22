@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Customer
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Metal
 import com.viswakarma.jewelleryworks.model.repository.DataRepository
-import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Orders
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Order
 import kotlinx.coroutines.launch
 import java.time.OffsetDateTime
 import java.util.*
@@ -14,16 +14,18 @@ class CreateOrderViewModel(private var dataRepository: DataRepository) : ViewMod
     private var customer: Customer? = null
     private var isSubmitted: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun createOrder(customerId: String, name: String, phone: String, description: String, amount: Int) {
+    fun createOrder(customerId: String, name: String, phone: String, metal: Metal, model: String, description: String, weight: Double) {
         viewModelScope.launch {
-            dataRepository.insertOrder(Orders(
+            dataRepository.insertOrder(Order(
                 id = UUID.randomUUID().toString(),
+                dateTime = OffsetDateTime.now(),
                 customerId = customerId,
                 name = name,
-                dateTime = OffsetDateTime.now(),
                 phone = phone,
+                modelNo = model,
                 description = description,
-                metal = Metal.GOLD.ordinal
+                metal = metal.value,
+                weight = weight
             ))
             isSubmitted.value = true
         }

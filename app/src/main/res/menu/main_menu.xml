@@ -21,11 +21,11 @@
         android:title="@string/title_add"
         app:showAsAction="ifRoom|withText"/>
 
-<!--    <item-->
-<!--        android:id="@+id/action_done"-->
-<!--        android:icon="@drawable/ic_done"-->
-<!--        android:title="@string/done"-->
-<!--        app:showAsAction="ifRoom|withText"/>-->
+    <item
+        android:id="@+id/action_done"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/done"
+        app:showAsAction="always|withText"/>
 
 
 </menu>

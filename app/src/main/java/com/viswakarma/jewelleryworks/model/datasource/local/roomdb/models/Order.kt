@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.time.OffsetDateTime
 
 @Entity(tableName = "orders")
-data class Orders(
+data class Order(
     @PrimaryKey
     val id: String,
     val customerId: String,
@@ -15,10 +15,14 @@ data class Orders(
     var image: String = "",
     var modelNo: String = "",
     var description: String = "",
-    var metal: Int,
+    var metal: String,
     var weight: Double = 0.0
 ) {
 
+    fun getWeightFormat(): String {
+        return "W %.3fg".format(weight)
+    }
+
 }
 
-enum class Metal { GOLD, SILVER, COPPER, BRASS, ALLOY }
+enum class Metal(val value:String) { GOLD("Gold"), SILVER("Silver"), COPPER("Copper"), BRASS("Brass"), ALLOY("Alloy") }

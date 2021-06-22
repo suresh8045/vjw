@@ -2,6 +2,7 @@ package com.viswakarma.jewelleryworks.view.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.viswakarma.jewelleryworks.R
@@ -48,4 +49,22 @@ class CatalogueFragment : BaseFragment() {
         }
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val actionDone = menu.findItem(R.id.action_done)
+        actionDone.isVisible = false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        R.id.action_add -> {
+            findNavController().navigate(CatalogueFragmentDirections.actionNavigationCatalogueToAddToCatalogueFragment())
+            true
+        }
+        R.id.action_search -> {
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
 }

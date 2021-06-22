@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.viswakarma.jewelleryworks.R
-import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Orders
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Order
 import timber.log.Timber
 
 class DashboardAdapter(var context: Context, var onDashboardItemsInteractionListener: OnDashboardItemsInteractionListener, var itemOnClick: (Any) -> Unit) :
@@ -28,7 +28,7 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
         var due:TextView = itemView.findViewById(R.id.due)
         var description:TextView = itemView.findViewById(R.id.description)
 
-        fun onBind(item: Orders) {
+        fun onBind(item: Order) {
             name.text = item.name
             due.text = ""//item.totalAmount.toString()
             description.text = item.description
@@ -39,7 +39,7 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
 
     class DashboardItemDiffCallback: DiffUtil.ItemCallback<Any>(){
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if(oldItem is Orders && newItem is Orders){
+            return if(oldItem is Order && newItem is Order){
                 oldItem == newItem
             }else {
                 false
@@ -47,8 +47,8 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return if(oldItem is Orders && newItem is Orders){
-                return oldItem as Orders == newItem
+            return if(oldItem is Order && newItem is Order){
+                return oldItem as Order == newItem
             }else {
                 false
             }
@@ -72,7 +72,7 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
 
     override fun getItemViewType(position: Int): Int {
         return when(getItem(position)){
-            is Orders->{
+            is Order->{
                 DASHBOARD_ORDER
             }
             else->{
@@ -84,7 +84,7 @@ class DashboardAdapter(var context: Context, var onDashboardItemsInteractionList
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         Timber.i(" list position $position")
-        (holder as? OrdersViewHolder)?.onBind(getItem(position) as Orders)
+        (holder as? OrdersViewHolder)?.onBind(getItem(position) as Order)
     }
 
     interface OnDashboardItemsInteractionListener{
