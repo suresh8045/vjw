@@ -215,8 +215,8 @@ class AddToCatalogueFragment : BaseFragment() {
     }
 
     private fun doItemNameValidation(text: String, layout: TextInputLayout) {
-        if (text.isValid().not()) {
-            layout.error = "Name must not be Empty"
+        if (text.isValid(maxlength = 32).not()) {
+            layout.error = "Name max chars allowed 32 and not Empty"
         } else {
             layout.error = null
         }

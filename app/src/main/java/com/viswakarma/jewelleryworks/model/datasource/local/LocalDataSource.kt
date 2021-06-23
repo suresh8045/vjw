@@ -22,6 +22,6 @@ class LocalDataSource(
     suspend fun getAllCustomers(): List<Customer> = customersDao.getAllCustomers()
     suspend fun getCustomerById(customerId: String): Customer = customersDao.getCustomerById(customerId)
     suspend fun addNewCatalogueItem(catalogue: Catalogue) = catalogueDao.insertCustomer(catalogue)
-    fun getAllCatalogueFlow(): Flow<List<Catalogue>> = catalogueDao.getAllCataloguesFlow()
+    fun getAllCatalogueFlow(searchText: String): Flow<List<Catalogue>> = catalogueDao.getAllCataloguesFlow(searchText)
 
 }

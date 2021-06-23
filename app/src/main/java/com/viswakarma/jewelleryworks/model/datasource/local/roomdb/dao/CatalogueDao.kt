@@ -25,7 +25,14 @@ interface CatalogueDao {
     @Query("SELECT * FROM catalogue WHERE id=(:id)")
     suspend fun getCatalogueById(id:String):Catalogue
 
-    @Query("SELECT * FROM catalogue ORDER BY dateTime DESC")
-    fun getAllCataloguesFlow(): Flow<List<Catalogue>>
+//    @Query("SELECT * FROM catalogue ORDER BY dateTime DESC")
+    @Query("""SELECT * FROM catalogue 
+        WHERE name LIKE '%' || :searchText || '%' 
+        or modelNo LIKE '%' || :searchText || '%' 
+        or type LIKE '%' || :searchText || '%' 
+        or metal LIKE '%' || :searchText || '%' 
+        or weight LIKE '%' || :searchText || '%' 
+        ORDER BY dateTime DESC""")
+    fun getAllCataloguesFlow(searchText: String): Flow<List<Catalogue>>
 
 }
