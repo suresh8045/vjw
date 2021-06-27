@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_search_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView

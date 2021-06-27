@@ -72,11 +72,11 @@
         android:name="com.viswakarma.jewelleryworks.TransactionsFragment"
         android:label="@string/title_transactions"
         tools:layout="@layout/transactions_fragment" >
-        <action
-            android:id="@+id/action_transactionsFragment_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:popUpTo="@id/navigation_home"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_transactionsFragment_to_navigation_home"-->
+<!--            app:destination="@id/navigation_home"-->
+<!--            app:popUpTo="@id/navigation_home"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
             android:id="@+id/action_transactionsFragment_to_addTransactionFragment"
             app:destination="@id/addTransactionFragment" />
@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_ordersFragment_to_transactionsFragment"
             app:destination="@id/transactionsFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
@@ -98,8 +101,12 @@
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.viswakarma.jewelleryworks.OrderDetailsFragment"
-        android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" />
+        android:label="@string/title_order_details"
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addToCatalogueFragment"
         android:name="com.viswakarma.jewelleryworks.AddToCatalogueFragment"

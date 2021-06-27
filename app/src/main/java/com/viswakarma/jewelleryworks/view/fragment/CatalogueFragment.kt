@@ -2,7 +2,10 @@ package com.viswakarma.jewelleryworks.view.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +27,7 @@ class CatalogueFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_catalogue, container, false)
     }
 
@@ -41,7 +44,13 @@ class CatalogueFragment : BaseFragment() {
     }
 
     override fun setupListeners(view: View) {
+//        dataAdapter.setOnLongPressListener{
+//            val actionMode = (requireActivity() as AppCompatActivity).startSupportActionMode(this.callback)
+//            actionMode?.title = "1 selected"
+//        }
+        setFragmentResultListener("result"){ str,bundle ->
 
+        }
     }
 
     override fun setupObservers() {

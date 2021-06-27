@@ -1,8 +1,12 @@
 package com.viswakarma.jewelleryworks.view.activity
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
@@ -15,6 +19,44 @@ import com.viswakarma.jewelleryworks.R
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+
+    val callback = object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.contextual_action_bar, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            return false
+        }
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            return when (item?.itemId) {
+                R.id.action_done->{
+                    supportFragmentManager.setFragmentResult("action_done", bundleOf())
+                    true
+                }
+                /*     R.id.share -> {
+                         // Handle share icon press
+                         true
+                     }
+                     R.id.delete -> {
+                         // Handle delete icon press
+                         true
+                     }
+                     R.id.more -> {
+                         // Handle more item (inside overflow menu) press
+                         true
+                     }*/
+                else -> false
+            }
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -19,6 +19,7 @@ class DataRepository(
     suspend fun insertOrder(order:Order) = localDataSource.insertOrder(order)
 
     fun getAllOrdersFlow() = localDataSource.getAllOrdersFlow()
+    fun getAllOrdersFlow(searchText: String) = localDataSource.getAllOrdersFlow(searchText)
     suspend fun addNewCustomer(customer: Customer) {
         localDataSource.addNewCustomer(customer)
     }

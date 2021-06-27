@@ -28,4 +28,14 @@ interface OrdersDao {
     @Query("SELECT * FROM Orders")
     fun getAllOrdersFlow(): Flow<List<Order>>
 
+    @Query("""SELECT * FROM orders
+        WHERE name LIKE '%' || :searchText || '%' 
+        or phone LIKE '%' || :searchText || '%' 
+        or modelNo LIKE '%' || :searchText || '%' 
+        or description LIKE '%' || :searchText || '%' 
+        or metal LIKE '%' || :searchText || '%' 
+        or weight LIKE '%' || :searchText || '%' 
+        ORDER BY dateTime DESC""")
+    fun getAllOrdersFlow(searchText: String): Flow<List<Order>>
+
 }

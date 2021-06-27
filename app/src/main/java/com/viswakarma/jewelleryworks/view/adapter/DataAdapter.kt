@@ -142,7 +142,7 @@ class DataAdapter(context: Context) : GenericAdapter(DataItemDiffCallback()) {
                 metal.text = order.metal
             }
             view.setOnClickListener {
-                it.findNavController().navigate(OrdersFragmentDirections.actionOrdersFragmentToTransactionsFragment())
+                it.findNavController().navigate(OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment())
             }
         }
     }

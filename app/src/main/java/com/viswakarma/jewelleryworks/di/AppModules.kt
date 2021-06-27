@@ -1,9 +1,6 @@
 package com.viswakarma.jewelleryworks.di
 
-import com.viswakarma.jewelleryworks.AddCustomerViewModel
-import com.viswakarma.jewelleryworks.AddToCatalogueViewModel
-import com.viswakarma.jewelleryworks.OrdersViewModel
-import com.viswakarma.jewelleryworks.TransactionsViewModel
+import com.viswakarma.jewelleryworks.*
 import com.viswakarma.jewelleryworks.model.datasource.local.LocalDataSource
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.database.ViswakarmaDatabase
 import com.viswakarma.jewelleryworks.model.datasource.preferences.Prefs
@@ -30,6 +27,7 @@ val viewModelModule = module {
     viewModel { AddCustomerViewModel(get()) }
     viewModel { TransactionsViewModel(get()) }
     viewModel { OrdersViewModel(get()) }
+    viewModel { OrderDetailsViewModel(get()) }
     viewModel { AddToCatalogueViewModel(get()) }
 }
 

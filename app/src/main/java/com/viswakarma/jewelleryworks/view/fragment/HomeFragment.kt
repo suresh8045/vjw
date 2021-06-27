@@ -54,6 +54,12 @@ class HomeFragment : BaseFragment() {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val actionDone = menu.findItem(R.id.action_done)
+        actionDone.isVisible = false
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.action_add -> {
             showMenu(requireView(), R.menu.popup_menu_add)
