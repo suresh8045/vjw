@@ -28,6 +28,7 @@ class DataRepository(
     suspend fun getAllCustomers(): List<Customer> = localDataSource.getAllCustomers()
     suspend fun getCustomerById(customerId: String): Customer = localDataSource.getCustomerById(customerId)
     suspend fun addNewCatalogueItem(catalogue: Catalogue) = localDataSource.addNewCatalogueItem(catalogue)
+    suspend fun getAllCatalogues(): List<Catalogue> = localDataSource.getAllCatalogues()
     fun getAllCatalogueItems(searchText: String): Flow<List<Catalogue>> = localDataSource.getAllCatalogueFlow(searchText)
     fun getCatalogueItemTypes(): List<String> = Catalogue.getItemTypes()
 

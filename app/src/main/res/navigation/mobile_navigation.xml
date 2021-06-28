@@ -48,9 +48,10 @@
             app:argType="string"
             android:defaultValue='' />
         <action
-            android:id="@+id/action_navigation_create_order_to_transactionsFragment"
-            app:destination="@id/transactionsFragment"
-            app:popUpTo="@id/navigation_home"/>
+            android:id="@+id/action_navigation_create_order_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment"
+            app:popUpTo="@id/navigation_create_order"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

@@ -25,7 +25,6 @@ interface CatalogueDao {
     @Query("SELECT * FROM catalogue WHERE id=(:id)")
     suspend fun getCatalogueById(id:String):Catalogue
 
-//    @Query("SELECT * FROM catalogue ORDER BY dateTime DESC")
     @Query("""SELECT * FROM catalogue 
         WHERE name LIKE '%' || :searchText || '%' 
         or modelNo LIKE '%' || :searchText || '%' 

@@ -1,20 +1,28 @@
 package com.viswakarma.jewelleryworks.view.fragment
 
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.viswakarma.jewelleryworks.R
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Metal
 import com.viswakarma.jewelleryworks.model.util.isValid
 import com.viswakarma.jewelleryworks.viewmodel.CreateOrderViewModel
+import kotlinx.android.synthetic.main.create_order_fragment.*
+import kotlinx.android.synthetic.main.create_order_fragment.view.*
+import kotlinx.android.synthetic.main.recycler_order_itemview.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateOrderFragment : BaseFragment() {
@@ -24,8 +32,10 @@ class CreateOrderFragment : BaseFragment() {
     private lateinit var customerSelection: AutoCompleteTextView
     private lateinit var customerSelectionInputLayout: TextInputLayout
     private lateinit var metalRadioGroup: RadioGroup
-    private lateinit var modelNoInput: TextInputEditText
+    private lateinit var modelNoInput: AutoCompleteTextView
     private lateinit var modelNoInputLayout: TextInputLayout
+    private lateinit var modelImage: ImageView
+    private lateinit var customModelCheckBox: CheckBox
     private lateinit var descriptionInput: TextInputEditText
     private lateinit var descriptionInputLayout: TextInputLayout
     private lateinit var weightInput: TextInputEditText
@@ -49,6 +59,8 @@ class CreateOrderFragment : BaseFragment() {
         metalRadioGroup = view.findViewById(R.id.radioGroupMetal)
         modelNoInput = view.findViewById(R.id.modelno)
         modelNoInputLayout = view.findViewById(R.id.modelnoLayout)
+        modelImage = view.modelImage
+        customModelCheckBox = view.customModelCheckBox
         descriptionInput = view.findViewById(R.id.description)
         descriptionInputLayout = view.findViewById(R.id.descriptionLayout)
         weightInput = view.findViewById(R.id.weight)
@@ -60,15 +72,20 @@ class CreateOrderFragment : BaseFragment() {
         metalRadioGroup.setOnCheckedChangeListener { group, _ ->
             doMetalSelectionValidation(group)
         }
-        modelNoInput.doAfterTextChanged {
-            doModelNoValidation(it.toString(), modelNoInputLayout)
-        }
         descriptionInput.doAfterTextChanged {
             doDescriptionValidation(it.toString(), descriptionInputLayout)
         }
         weightInput.doAfterTextChanged {
             doWeightValidation(it.toString(), weightInputLayout)
         }
+        customModelCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                viewModel.setSelectedModel(null)
+                modelNoInput.text.clear()
+                metalRadioGroup.clearCheck()
+            }
+        }
+
         createOrderBtn.setOnClickListener {
             doCustomerValidation(customerSelectionInputLayout)
             doMetalSelectionValidation(metalRadioGroup)
@@ -81,17 +98,22 @@ class CreateOrderFragment : BaseFragment() {
                 && weightInputLayout.error.isNullOrBlank()
             ) {
                 val customer = viewModel.getSelectedCustomer()!!
+                val modelStr = if(customModelCheckBox.isChecked.not()) {
+                    viewModel.getSelectedModel()!!.let { "${it.name} |${it.modelNo}" }
+                }else {
+                    modelNoInput.text.toString()
+                }
                 viewModel.createOrder(
                     customerId = customer.id,
                     name = customer.name,
                     phone = customer.phone,
                     metal = getMetalChecked()!!,
-                    model = modelNoInput.text.toString(),
+                    model = modelStr,
                     description = descriptionInput.text.toString(),
                     weight = weightInput.text.toString().toDouble()
                 )
                 viewModel.getIsSumbitted().observe(viewLifecycleOwner) {
-                    findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToTransactionsFragment())
+                    findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToOrderDetailsFragment())
                 }
             }
         }
@@ -131,6 +153,38 @@ class CreateOrderFragment : BaseFragment() {
                 }
             }
         }
+        viewModel.allCatalogueItems.observe(viewLifecycleOwner){ models: List<Catalogue> ->
+            val items = models.map { "${it.name}|${it.modelNo}" }
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
+            (modelNoInput as? AutoCompleteTextView)?.run {
+                setAdapter(adapter)
+                setOnItemClickListener { _, _, position, _ ->
+                    viewModel.setSelectedModel(models[position])
+                    doModelNoValidation(modelNoInput.text.toString(), modelNoInputLayout)
+                }
+                doAfterTextChanged {
+                    viewModel.setSelectedModel(null)
+                    doModelNoValidation(modelNoInput.text.toString(), modelNoInputLayout)
+                }
+            }
+        }
+        viewModel.selectedModel.observe(viewLifecycleOwner){ model: Catalogue? ->
+            if(model!=null){
+                val decodedString = Base64.decode(model.image, Base64.NO_WRAP)
+                modelImage.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0,decodedString.size))
+                customModelCheckBox.isChecked = false
+                when(model.metal){
+                    Metal.GOLD.value -> metalRadioGroup.check(R.id.radio_button_gold)
+                    Metal.SILVER.value -> metalRadioGroup.check(R.id.radio_button_silver)
+                    else -> {metalRadioGroup.clearCheck()}
+                }
+                weightInput.setText(model.weight.toString())
+            }else{
+                modelImage.setImageResource(R.drawable.ic_baseline_photo_library_24)
+                metalRadioGroup.clearCheck()
+                weightInput.text?.clear()
+            }
+        }
     }
 
     private fun doMetalSelectionValidation(view: RadioGroup) {
@@ -164,10 +218,18 @@ class CreateOrderFragment : BaseFragment() {
     }
 
     private fun doModelNoValidation(text: String, layout: TextInputLayout) {
-        if (text.isValid().not()) {
-            layout.error = "Select Model"
-        } else {
-            layout.error = null
+        if(customModelCheckBox.isChecked){
+            if (text.isValid(maxlength = 64).not()) {
+                layout.error = "Required Custom Model, MAX 64 chars"
+            } else {
+                layout.error = null
+            }
+        }else {
+            if (viewModel.getSelectedModel() == null) {
+                layout.error = "Select Model"
+            } else {
+                layout.error = null
+            }
         }
     }
 

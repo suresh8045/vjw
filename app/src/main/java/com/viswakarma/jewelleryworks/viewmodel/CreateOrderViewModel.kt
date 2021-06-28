@@ -1,6 +1,7 @@
 package com.viswakarma.jewelleryworks.viewmodel
 
 import androidx.lifecycle.*
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Customer
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Metal
 import com.viswakarma.jewelleryworks.model.repository.DataRepository
@@ -11,7 +12,11 @@ import java.util.*
 
 class CreateOrderViewModel(private var dataRepository: DataRepository) : ViewModel() {
 
+    private val _selectedModel: MutableLiveData<Catalogue?> = MutableLiveData(null)
+    val selectedModel: LiveData<Catalogue?> = _selectedModel
+    val allCatalogueItems: LiveData<List<Catalogue>> = liveData { emit(dataRepository.getAllCatalogues()) }
     private var customer: Customer? = null
+    private var catalogue: Catalogue? = null
     private var isSubmitted: MutableLiveData<Boolean> = MutableLiveData()
 
     fun createOrder(customerId: String, name: String, phone: String, metal: Metal, model: String, description: String, weight: Double) {
@@ -51,6 +56,15 @@ class CreateOrderViewModel(private var dataRepository: DataRepository) : ViewMod
     }
     fun getSelectedCustomer(): Customer? {
         return customer
+    }
+
+    fun setSelectedModel(catalogue: Catalogue?) {
+        _selectedModel.value = catalogue
+        this.catalogue = catalogue
+    }
+
+    fun getSelectedModel(): Catalogue? {
+        return catalogue
     }
 
 }
