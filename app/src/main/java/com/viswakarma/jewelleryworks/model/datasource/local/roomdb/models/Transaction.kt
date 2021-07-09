@@ -3,6 +3,7 @@ package com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.OffsetDateTime
+import java.util.*
 
 @Entity(tableName = "transactions")
 data class Transaction(
@@ -22,6 +23,7 @@ data class Transaction(
     var stoneType: Int = 0,
     var stoneCount: Int = 0,
 ) {
+
     fun getWeightFormat(): String {
         return "W %.3fg".format(weight)
     }
@@ -42,6 +44,38 @@ data class Transaction(
                 }
             }
         }
+
+        fun newTransaction(
+            customerId: String,
+            orderId: String,
+            type: TransactionType,
+            description: String = "",
+            amount: Int = 0,
+            metal: Metal = Metal.UNKNOWN,
+            metalState: Int = 0,
+            metalRatePerTenGrams: Int = 0,
+            weight: Double = 0.0,
+            purity: Float = 100f,
+            stoneType: Int = 0,
+            stoneCount: Int = 0
+        ): Transaction {
+            return Transaction(
+                id = UUID.randomUUID().toString(),
+                customerId = customerId,
+                orderId = orderId,
+                dateTime = OffsetDateTime.now(),
+                type = type.value,
+                description = description,
+                amount = amount,
+                metal = metal.value,
+                metalState = metalState,
+                metalRatePerTenGrams = metalRatePerTenGrams,
+                weight = weight,
+                purity = purity,
+                stoneType = stoneType,
+                stoneCount = stoneCount
+            )
+        }
     }
 }
 
@@ -58,6 +92,7 @@ enum class TransactionType(val value: String) {
     STONE_WEIGHT_MINUS("Stone Weight Minus"), WASTAGE("Wastage");
 
     companion object {
+
         fun getAllTransactionTypes(): List<String> {
             return arrayListOf<String>().apply {
                 addAll(getAmountRelatedTransactionTypes())

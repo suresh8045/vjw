@@ -51,8 +51,6 @@ class AddTransactionViewModel(private val dataRepository: DataRepository) : View
     }
 
 
-
-
     fun onConfirm(){
         Timber.d("onConfirm add Transaction wt:$weightInput, amount: $amountInput, desc: $descriptionInput")
         viewModelScope.launch {
@@ -60,12 +58,10 @@ class AddTransactionViewModel(private val dataRepository: DataRepository) : View
                 TransactionType.MAKING_CHARGE.value -> {
                     if (amountInput.isNotBlank() && descriptionInput.isNotBlank()) {
                         dataRepository.addNewTransaction(
-                            Transaction(
-                                id = UUID.randomUUID().toString(),
+                            Transaction.newTransaction(
                                 customerId = "",
                                 orderId = orderId,
-                                dateTime = OffsetDateTime.now(),
-                                type = TransactionType.MAKING_CHARGE.value,
+                                type = TransactionType.MAKING_CHARGE,
                                 description = descriptionInput,
                                 amount = amountInput.toInt()
                             )
@@ -76,12 +72,10 @@ class AddTransactionViewModel(private val dataRepository: DataRepository) : View
                 TransactionType.DISCOUNT.value -> {
                     if (amountInput.isNotBlank() && descriptionInput.isNotBlank()) {
                         dataRepository.addNewTransaction(
-                            Transaction(
-                                id = UUID.randomUUID().toString(),
+                            Transaction.newTransaction(
                                 customerId = "",
                                 orderId = orderId,
-                                dateTime = OffsetDateTime.now(),
-                                type = TransactionType.DISCOUNT.value,
+                                type = TransactionType.DISCOUNT,
                                 description = descriptionInput,
                                 amount = amountInput.toInt()
                             )
@@ -92,12 +86,10 @@ class AddTransactionViewModel(private val dataRepository: DataRepository) : View
                 TransactionType.PAID_AMOUNT.value ->{
                     if (amountInput.isNotBlank() && descriptionInput.isNotBlank()) {
                         dataRepository.addNewTransaction(
-                            Transaction(
-                                id = UUID.randomUUID().toString(),
+                            Transaction.newTransaction(
                                 customerId = "",
                                 orderId = orderId,
-                                dateTime = OffsetDateTime.now(),
-                                type = TransactionType.PAID_AMOUNT.value,
+                                type = TransactionType.PAID_AMOUNT,
                                 description = descriptionInput,
                                 amount = amountInput.toInt()
                             )
@@ -108,12 +100,10 @@ class AddTransactionViewModel(private val dataRepository: DataRepository) : View
                 TransactionType.MISCELLANEOUS_CHARGES.value ->{
                     if (amountInput.isNotBlank() && descriptionInput.isNotBlank()) {
                         dataRepository.addNewTransaction(
-                            Transaction(
-                                id = UUID.randomUUID().toString(),
+                            Transaction.newTransaction(
                                 customerId = "",
                                 orderId = orderId,
-                                dateTime = OffsetDateTime.now(),
-                                type = TransactionType.MISCELLANEOUS_CHARGES.value,
+                                type = TransactionType.MISCELLANEOUS_CHARGES,
                                 description = descriptionInput,
                                 amount = amountInput.toInt()
                             )
