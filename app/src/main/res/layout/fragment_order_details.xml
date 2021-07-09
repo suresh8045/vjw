@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/customerName"
@@ -21,14 +22,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@string/customer_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/customer_name" />
 
         <TextView
             android:id="@+id/phoneNo"
@@ -40,14 +41,49 @@
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@string/customer_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customerName" />
+            app:layout_constraintTop_toBottomOf="@+id/customerName"
+            tools:text="@string/phoneNumber" />
+
+        <View
+            android:id="@+id/dividerLine"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include
+        android:id="@+id/orderDetailsTableSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/order_details_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout"
+        app:layout_constraintVertical_bias="0.0">
+    </include>
+
+    <TextView
+        style="@style/LabelText"
+        android:id="@+id/labelTransactions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_transactions"
+        app:layout_constraintEnd_toEndOf="@+id/transactionsRecyclerView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/transactionsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/orderDetailsTableSection" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactionsRecyclerView"
@@ -57,23 +93,24 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        tools:listitem="@layout/recycler_transaction_itemview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/labelTransactions"
+        tools:listitem="@layout/recycler_transaction_itemview" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
+        style="@style/AppTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/add"
+        android:text="@string/title_add_transaction"
         app:fabSize="mini"
-        app:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@id/orderDetailsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout"
-        app:layout_constraintStart_toStartOf="@id/orderDetailsLayout"
-        android:contentDescription="@string/add" />
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="@+id/labelTransactions"
+        app:layout_constraintEnd_toEndOf="@id/transactionsRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/labelTransactions" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

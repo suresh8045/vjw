@@ -74,7 +74,7 @@ class AddToCatalogueFragment : BaseFragment() {
         itemTypeLayout = view.itemTypeLayout
         metalRadioGroup = view.radioGroupMetal
         weightInput = view.weight
-        weightInputLayout = view.weightLayout
+        weightInputLayout = view.weightInputLayout
         nameInput = view.nameInput
         nameInputLayout = view.nameInputLayout
     }

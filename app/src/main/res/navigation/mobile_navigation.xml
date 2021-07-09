@@ -98,12 +98,21 @@
         android:id="@+id/addTransactionFragment"
         android:name="com.viswakarma.jewelleryworks.AddTransactionFragment"
         android:label="@string/title_add_transaction"
-        tools:layout="@layout/add_transaction_fragment" />
+        tools:layout="@layout/add_transaction_fragment" >
+        <argument
+            android:name="orderId"
+            app:argType="string"
+            android:defaultValue=''/>
+    </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.viswakarma.jewelleryworks.OrderDetailsFragment"
         android:label="@string/title_order_details"
         tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="orderId"
+            app:argType="string"
+            android:defaultValue='' />
         <action
             android:id="@+id/action_orderDetailsFragment_to_addTransactionFragment"
             app:destination="@id/addTransactionFragment" />

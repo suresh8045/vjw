@@ -1,6 +1,5 @@
 package com.viswakarma.jewelleryworks.view.fragment
 
-import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,6 +22,7 @@ import kotlinx.android.synthetic.main.create_order_fragment.*
 import kotlinx.android.synthetic.main.create_order_fragment.view.*
 import kotlinx.android.synthetic.main.recycler_order_itemview.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class CreateOrderFragment : BaseFragment() {
     private val viewModel by viewModel<CreateOrderViewModel>()
@@ -64,7 +63,7 @@ class CreateOrderFragment : BaseFragment() {
         descriptionInput = view.findViewById(R.id.description)
         descriptionInputLayout = view.findViewById(R.id.descriptionLayout)
         weightInput = view.findViewById(R.id.weight)
-        weightInputLayout = view.findViewById(R.id.weightLayout)
+        weightInputLayout = view.findViewById(R.id.weightInputLayout)
         createOrderBtn = view.findViewById(R.id.save_btn)
     }
 
@@ -99,7 +98,7 @@ class CreateOrderFragment : BaseFragment() {
             ) {
                 val customer = viewModel.getSelectedCustomer()!!
                 val modelStr = if(customModelCheckBox.isChecked.not()) {
-                    viewModel.getSelectedModel()!!.let { "${it.name} |${it.modelNo}" }
+                    viewModel.getSelectedModel()!!.modelNo//let { "${it.name} |${it.modelNo}" }
                 }else {
                     modelNoInput.text.toString()
                 }
@@ -113,7 +112,7 @@ class CreateOrderFragment : BaseFragment() {
                     weight = weightInput.text.toString().toDouble()
                 )
                 viewModel.getIsSumbitted().observe(viewLifecycleOwner) {
-                    findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToOrderDetailsFragment())
+                    findNavController().navigate(CreateOrderFragmentDirections.actionNavigationCreateOrderToOrderDetailsFragment().setOrderId(viewModel.orderId))
                 }
             }
         }
@@ -158,8 +157,11 @@ class CreateOrderFragment : BaseFragment() {
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
             (modelNoInput as? AutoCompleteTextView)?.run {
                 setAdapter(adapter)
-                setOnItemClickListener { _, _, position, _ ->
-                    viewModel.setSelectedModel(models[position])
+                setOnItemClickListener { parent, view, position, id ->
+                    Timber.d("pos:$position model ")
+                    val item = adapter.getItem(position)
+                    val catalogue = models.first { item ==  "${it.name}|${it.modelNo}" }
+                    viewModel.setSelectedModel(catalogue)//models[position])
                     doModelNoValidation(modelNoInput.text.toString(), modelNoInputLayout)
                 }
                 doAfterTextChanged {

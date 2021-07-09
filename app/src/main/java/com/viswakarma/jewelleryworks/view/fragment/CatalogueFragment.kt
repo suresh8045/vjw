@@ -2,8 +2,6 @@ package com.viswakarma.jewelleryworks.view.fragment
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -38,7 +36,7 @@ class CatalogueFragment : BaseFragment() {
     override fun setupView(view: View) {
         view.findViewById<RecyclerView>(R.id.catalogueRecyclerView).run {
             layoutManager = LinearLayoutManager(requireContext())
-            dataAdapter = DataAdapter(requireContext())
+            dataAdapter = DataAdapter()
             adapter = dataAdapter
         }
     }
@@ -61,9 +59,10 @@ class CatalogueFragment : BaseFragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val actionDone = menu.findItem(R.id.action_done)
-        actionDone.isVisible = false
+        val actionAdd = menu.findItem(R.id.action_add)
+        actionAdd.isVisible=true
         val actionSearch = menu.findItem(R.id.action_search)
+        actionSearch.isVisible=true
         (actionSearch.actionView as? SearchView)?.run {
             setOnQueryTextListener(object: SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {

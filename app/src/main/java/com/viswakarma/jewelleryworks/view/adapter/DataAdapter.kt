@@ -1,6 +1,5 @@
 package com.viswakarma.jewelleryworks.view.adapter
 
-import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
-import com.viswakarma.jewelleryworks.OrdersFragment
 import com.viswakarma.jewelleryworks.OrdersFragmentDirections
 import com.viswakarma.jewelleryworks.R
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
@@ -19,7 +17,7 @@ import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Transa
 import com.viswakarma.jewelleryworks.model.util.getDateTime
 import com.viswakarma.jewelleryworks.view.fragment.HomeFragmentDirections
 
-class DataAdapter(context: Context) : GenericAdapter(DataItemDiffCallback()) {
+class DataAdapter : GenericAdapter(DataItemDiffCallback()) {
 
     override fun getLayoutId(position: Int, obj: Any): Int {
         return when(obj){
@@ -140,9 +138,9 @@ class DataAdapter(context: Context) : GenericAdapter(DataItemDiffCallback()) {
                 date.text = order.dateTime.getDateTime()
                 weight.text = order.getWeightFormat()
                 metal.text = order.metal
-            }
-            view.setOnClickListener {
-                it.findNavController().navigate(OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment())
+                view.setOnClickListener {
+                    it.findNavController().navigate(OrdersFragmentDirections.actionOrdersFragmentToOrderDetailsFragment().setOrderId(order.id))
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.viswakarma.jewelleryworks.model.datasource.local.roomdb.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.viswakarma.jewelleryworks.model.bussinessmodels.OrderDetails
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Order
 import kotlinx.coroutines.flow.Flow
 
@@ -37,5 +39,9 @@ interface OrdersDao {
         or weight LIKE '%' || :searchText || '%' 
         ORDER BY dateTime DESC""")
     fun getAllOrdersFlow(searchText: String): Flow<List<Order>>
+
+    @Transaction
+    @Query("SELECT * FROM orders WHERE id=:orderId")
+    fun getOrderDetails(orderId: String): Flow<OrderDetails>
 
 }

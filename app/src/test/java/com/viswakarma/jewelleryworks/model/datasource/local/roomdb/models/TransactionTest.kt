@@ -18,7 +18,7 @@ class TransactionTest {
 
     @Test
     fun testEnumToString(){
-        print(TransactionType.DISCOUNT.type)
+        print(TransactionType.DISCOUNT.value)
     }
 
     @Test
@@ -30,10 +30,10 @@ class TransactionTest {
             purity = 99.9f,
             orderId = "",
             dateTime = OffsetDateTime.now(),
-            type = TransactionType.METAL_RECEIVED.type,
+            type = TransactionType.METAL_RECEIVED.value,
             metal = Metal.GOLD.value,
             metalRatePerTenGrams = 50000,
-            metalState = MetalState.SOLID_METAL.state,
+            metalState = MetalState.SOLID_METAL.value,
         )
         assert(txn.getWeightFormat() == "W 10.500g")
         assert(txn.getPurityFormat() == "(99.9%)")

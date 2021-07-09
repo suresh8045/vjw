@@ -25,4 +25,4 @@ data class Order(
 
 }
 
-enum class Metal(val value:String) { GOLD("Gold"), SILVER("Silver"), COPPER("Copper"), BRASS("Brass"), ALLOY("Alloy") }
+enum class Metal(val value:String) { UNKNOWN("Unknown"), GOLD("Gold"), SILVER("Silver"), COPPER("Copper"), BRASS("Brass"), ALLOY("Alloy") }

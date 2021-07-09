@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment() {
         customersRecyclerView = view.findViewById(R.id.topCustomersRecyclerView)
         customersRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        dataAdapter = DataAdapter(requireContext())
+        dataAdapter = DataAdapter()
         customersRecyclerView.adapter = dataAdapter
     }
 
@@ -56,8 +56,10 @@ class HomeFragment : BaseFragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val actionDone = menu.findItem(R.id.action_done)
-        actionDone.isVisible = false
+        val actionAdd = menu.findItem(R.id.action_add)
+        actionAdd.isVisible = true
+        val actionSearch = menu.findItem(R.id.action_search)
+        actionSearch.isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {

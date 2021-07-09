@@ -3,12 +3,10 @@ package com.viswakarma.jewelleryworks
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.viswakarma.jewelleryworks.view.adapter.DataAdapter
 import com.viswakarma.jewelleryworks.view.fragment.BaseFragment
-import com.viswakarma.jewelleryworks.view.fragment.CatalogueFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrdersFragment : BaseFragment() {
@@ -32,7 +30,7 @@ class OrdersFragment : BaseFragment() {
     override fun setupView(view: View) {
         ordersRecyclerView = view.findViewById(R.id.ordersRecyclerView)
         ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        dataAdapter = DataAdapter(requireContext())
+        dataAdapter = DataAdapter()
         ordersRecyclerView.adapter = dataAdapter
     }
 
@@ -51,9 +49,8 @@ class OrdersFragment : BaseFragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        val actionDone = menu.findItem(R.id.action_done)
-        actionDone.isVisible = false
         val actionSearch = menu.findItem(R.id.action_search)
+        actionSearch.isVisible=true
         (actionSearch.actionView as? SearchView)?.run {
             setOnQueryTextListener(object: SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {

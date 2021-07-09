@@ -10,6 +10,7 @@ import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.dao.Customers
 import com.viswakarma.jewelleryworks.model.util.OffsetDateTimeConverter
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.database.ViswakarmaDatabase.Companion.VERSION
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.dao.OrdersDao
+import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.dao.TransactionDao
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Catalogue
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Customer
 import com.viswakarma.jewelleryworks.model.datasource.local.roomdb.models.Order
@@ -30,6 +31,7 @@ abstract class ViswakarmaDatabase : RoomDatabase() {
     abstract fun ordersDao(): OrdersDao
     abstract fun customersDao(): CustomersDao
     abstract fun catalogueDao(): CatalogueDao
+    abstract fun transactionDao(): TransactionDao
 
     companion object {
         private const val DATABASE_NAME = "viswakarma"

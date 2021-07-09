@@ -4,66 +4,50 @@
     xmlns:motion="http://schemas.android.com/tools">
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint
-            android:id="@+id/orderDetailsLayout"
-            android:layout_height="250dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/orderDetailsLayout"
-            app:layout_constraintStart_toStartOf="@id/orderDetailsLayout"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailsLayout"
-            android:layout_marginStart="24dp" />
-        <Constraint
-            android:id="@+id/transactionsRecyclerView"
+        <Constraint android:id="@+id/orderDetailsTableSection"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintVertical_bias="0.0"
+            />
+        <Constraint
+            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/labelTransactions"
+            app:layout_constraintEnd_toEndOf="@id/transactionsRecyclerView"
+            android:layout_width="wrap_content"
+            android:id="@+id/fab"
+            app:layout_constraintBottom_toBottomOf="@+id/labelTransactions" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@+id/orderDetailsLayout"
-            android:layout_height="100dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <Constraint
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/orderDetailsLayout"
-            app:layout_constraintStart_toStartOf="@id/orderDetailsLayout"
-            app:layout_constraintTop_toBottomOf="@id/orderDetailsLayout" />
-        <Constraint
-            android:id="@+id/transactionsRecyclerView"
+        <Constraint android:id="@+id/orderDetailsTableSection"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/orderDetailsLayout"
+            app:layout_constraintVertical_bias="0.0"
+            />
+        <Constraint
+            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/labelTransactions"
+            app:layout_constraintEnd_toEndOf="@id/transactionsRecyclerView"
+            android:layout_width="wrap_content"
+            android:id="@+id/fab"
+            app:layout_constraintBottom_toBottomOf="@+id/labelTransactions" />
+
     </ConstraintSet>
 
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start">
-        <OnSwipe app:touchAnchorId="@+id/transactionsRecyclerView" />
+        <OnSwipe
+            app:touchAnchorSide="top"
+            app:touchAnchorId="@+id/transactionsRecyclerView" />
     </Transition>
 
 </MotionScene>

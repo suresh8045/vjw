@@ -29,6 +29,7 @@ val viewModelModule = module {
     viewModel { OrdersViewModel(get()) }
     viewModel { OrderDetailsViewModel(get()) }
     viewModel { AddToCatalogueViewModel(get()) }
+    viewModel { AddTransactionViewModel(get()) }
 }
 
 val dataModule = module {

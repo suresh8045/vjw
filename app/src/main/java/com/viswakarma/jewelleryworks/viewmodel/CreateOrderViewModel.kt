@@ -18,11 +18,13 @@ class CreateOrderViewModel(private var dataRepository: DataRepository) : ViewMod
     private var customer: Customer? = null
     private var catalogue: Catalogue? = null
     private var isSubmitted: MutableLiveData<Boolean> = MutableLiveData()
+    lateinit var orderId: String
 
     fun createOrder(customerId: String, name: String, phone: String, metal: Metal, model: String, description: String, weight: Double) {
         viewModelScope.launch {
+            orderId = UUID.randomUUID().toString()
             dataRepository.insertOrder(Order(
-                id = UUID.randomUUID().toString(),
+                id = orderId,
                 dateTime = OffsetDateTime.now(),
                 customerId = customerId,
                 name = name,

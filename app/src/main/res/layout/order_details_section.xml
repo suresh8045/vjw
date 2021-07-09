@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <ImageView
+        android:id="@+id/modelImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.3"
+        app:srcCompat="@drawable/ic_baseline_image_24"
+        android:contentDescription="@string/model_image" />
+
+    <TextView
+        style="@style/LabelText"
+        android:id="@+id/orderId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toEndOf="@+id/modelImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="orderId" />
+    <TextView
+        style="@style/BodyText"
+        android:id="@+id/orderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toEndOf="@+id/modelImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderId"
+        android:text="order Name" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/modelImageBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="modelImage,"/>
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_margin="12dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/modelImageBarrier"
+        android:stretchColumns="1,2"
+        app:layout_constraintVertical_bias="0.0">
+        <TableRow>
+            <TextView
+                style="@style/TitleTextMedium"
+                android:layout_column="1"
+                android:padding="3dp"
+                android:text="Total Charges"/>
+            <TextView
+                style="@style/BodyTextMedium"
+                android:id="@+id/totalAmountCharges"
+                android:textColor="@color/blue"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="0" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                style="@style/TitleTextMedium"
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Paid Amount" />
+
+            <TextView
+                style="@style/BodyTextMedium"
+                android:id="@+id/totalPaidAmount"
+                android:textColor="@color/green"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="0" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                style="@style/TitleTextMedium"
+                android:layout_column="1"
+                android:padding="3dip"
+                android:text="Amount Due" />
+
+            <TextView
+                style="@style/BodyTextMedium"
+                android:id="@+id/totalAmountDue"
+                android:textColor="@color/red"
+                android:gravity="end"
+                android:padding="3dip"
+                android:text="0" />
+        </TableRow>
+    </TableLayout>
+
+<!--    <TextView
+        android:id="@+id/totalAmountDueLabel"
+        style="@style/BodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modelImage"
+        tools:text="Total Amount Due "/>
+    <TextView
+        android:id="@+id/totalWeightDueLabel"
+        style="@style/BodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalAmountDueLabel"
+        tools:text="Total Weight Due"/>
+    <TextView
+        android:id="@+id/totalPaidAmountLabel"
+        style="@style/BodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalWeightDueLabel"
+        tools:text="Total Paid Amount"/>
+
+    <TextView
+        android:id="@+id/wastageLabel"
+        style="@style/BodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalPaidAmountLabel"
+        tools:text="Wastage"/>-->
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/labelBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        />
+<!--    app:constraint_referenced_ids="totalAmountDueLabel,totalWeightDueLabel"-->
+
+<!--    app:layout_constraintTop_toTopOf="@+id/totalAmountDueLabel"-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
