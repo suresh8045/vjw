@@ -30,7 +30,7 @@ class TransactionsFragment : BaseFragment() {
         transactionsRecyclerView = view.findViewById(R.id.transactionsRecyclerView)
         fab = view.findViewById(R.id.fab)
         transactionsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        dataAdapter = DataAdapter(requireContext())
+        dataAdapter = DataAdapter()
         transactionsRecyclerView.adapter = dataAdapter
     }
 
